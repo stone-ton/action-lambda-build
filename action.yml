@@ -2,4 +2,4 @@ name: 'Action Lambda Build'
 description: 'Build of lambda with Actions'
 runs:
   using: 'node16'
-  main: 'lib/index.js'
+  main: 'lib/index.mjs'

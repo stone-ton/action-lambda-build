@@ -15,20 +15,16 @@ import path from 'path';
 import YAML from 'yaml';
 
 const { fileSync: findSync } = findPkg;
-const program = new Command();
 
-program
-  .option('-o, --output <path>', 'output path', 'build')
-  .option('-f, --file <path>', 'file path')
-  .option('-i, --individually', 'build individually lambdas')
-  .option('-z, --zip', 'zip build')
-  .option('-s, --source-map', 'enable source map file')
-  .option('-m, --minify', 'enable minify file')
-  .option('-t, --target <es>', 'ES version target', 'es2019');
-
-program.parse();
-
-const options = program.opts();
+const options = {
+  file: 'functions.yml',
+  output: 'build',
+  minify: true,
+  sourceMap: true,
+  individually: true,
+  zip: true,
+  target: 'es2019'
+};
 
 const fileYml = fs.readFileSync(
   path.resolve(process.cwd(), options.file),
