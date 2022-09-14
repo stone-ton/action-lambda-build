@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
-    "build": "tsc",
+    "build": "tsc --experimental-modules",
     "dev": "ts-node src/index.ts",
     "prepublishOnly": "tsc"
   },
