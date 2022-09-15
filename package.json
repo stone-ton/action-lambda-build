@@ -36,16 +36,16 @@
     "lib"
   ],
   "dependencies": {
-    "@vercel/ncc": "^0.33.4",
+    "@vercel/ncc": "^0.34.0",
     "adm-zip": "^0.5.9",
     "bytes": "^3.1.2",
     "chalk": "^4.1.2",
-    "commander": "^9.2.0",
+    "commander": "^9.4.0",
     "del": "^6.0.0",
     "find": "^0.3.0",
     "log-update": "^5.0.1",
     "mkdirp": "^1.0.4",
-    "yaml": "^2.0.1"
+    "yaml": "^2.1.1"
   },
   "bin": {
     "lambda-builder": "lib/index.js"
