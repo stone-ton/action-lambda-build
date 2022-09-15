@@ -10,6 +10,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
     "build": "tsc",
+    "postinstall": "tsc",
     "prepublishOnly": "tsc"
   },
   "keywords": [],
