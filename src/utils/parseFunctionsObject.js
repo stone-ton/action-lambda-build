@@ -1,4 +1,4 @@
-const {parsePathHandler} = require('./parsePathHandler')
+const parsePathHandler = require('./parsePathHandler')
 
 function parseFunctionsObject(functionsObject) {
     return Object.entries(functionsObject)
