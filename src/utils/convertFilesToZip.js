@@ -1,10 +1,10 @@
-import Zip from 'adm-zip';
-import path from 'path';
+const Zip = require('adm-zip');
+const path = require('path');
 
 
 
 
-async function convertFilesToZip(output: string, zipName: string) {
+async function convertFilesToZip(output, zipName) {
     const zip = new Zip();
     zip.addLocalFolder(path.resolve(output));
     const outputZip = path.resolve(output, `${zipName}.zip`);
@@ -13,4 +13,4 @@ async function convertFilesToZip(output: string, zipName: string) {
     return outputZip;
 }
 
-export {convertFilesToZip}
+module.exports = convertFilesToZip;

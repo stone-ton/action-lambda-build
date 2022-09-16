@@ -1,9 +1,9 @@
-import {parsePathHandler} from './parsePathHandler'
+const {parsePathHandler} = require('./parsePathHandler')
 
-function parseFunctionsObject(functionsObject: any) {
+function parseFunctionsObject(functionsObject) {
     return Object.entries(functionsObject)
-      .filter(([, props]) => !(props as any).ignore)
-      .map(([name, props]: any) => {
+      .filter(([, props]) => !(props).ignore)
+      .map(([name, props]) => {
         const { folderPath, filename } = parsePathHandler(props.handler);
         return {
           name,
@@ -13,4 +13,4 @@ function parseFunctionsObject(functionsObject: any) {
       });
   }
 
-  export {parseFunctionsObject}
+  module.exports = parseFunctionsObject;

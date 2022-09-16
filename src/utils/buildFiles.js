@@ -1,17 +1,17 @@
-import mkdirp  from 'mkdirp';
-import path  from 'path';
-import Del  from 'del';
-import log  from 'log-update';
-import chalk  from 'chalk';
+const mkdirp  = require('mkdirp');
+const path  = require('path');
+const Del  = require('del');
+// const log  = require('log-update');
+const chalk  = require('chalk');
 // @ts-ignore
-import ncc  from '@vercel/ncc';
-import fs  from 'fs';
-import Zip  from 'adm-zip';
-// import bytes  from 'bytes';
+const ncc  = require('@vercel/ncc');
+const fs  = require('fs');
+const Zip  = require('adm-zip');
+const bytes  = require('bytes');
 
 
 
-async function buildFiles(files: any, options: any) {  
+async function buildFiles(files, options) {  
     mkdirp.sync(path.resolve(process.cwd(), options.output));
   
     Del.sync(options.output, { cwd: process.cwd() });
@@ -20,7 +20,7 @@ async function buildFiles(files: any, options: any) {
   
     // eslint-disable-next-line no-restricted-syntax
     for await (const file of files) {
-      log(file.name, chalk.black.bgYellow('Start Build'));
+      // log(file.name, chalk.black.bgYellow('Start Build'));
       const build = await ncc(
         path.resolve(process.cwd(), file.folder, file.filename),
         {
@@ -41,11 +41,11 @@ async function buildFiles(files: any, options: any) {
         },
       );
       
-      log(JSON.stringify(build.assets[Object.keys(build.assets)[1]].source.data));
-      log.done();
+      // log(JSON.stringify(build.assets[Object.keys(build.assets)[1]].source.data));
+      // log.done();
   
-      log(file.name, chalk.black.bgGreen('Finish Build'));
-      log.done();
+      // // log(file.name, chalk.black.bgGreen('Finish Build'));
+      // log.done();
   
       const outputFolderArgs = [process.cwd(), options.output, file.folder];
   
@@ -62,6 +62,9 @@ async function buildFiles(files: any, options: any) {
       if (options.sourceMap) {
         fs.writeFileSync(`${outputPathWithFilename}.map`, build.assets[Object.keys(build.assets)[0]]?.source);
       }
+
+      console.log('ok')
+
       // log(
       //   file.name,
       //   chalk.black.bgBlue(
@@ -69,7 +72,7 @@ async function buildFiles(files: any, options: any) {
       //     bytes(fs.statSync(outputPathWithFilename).size),
       //   ),
       // );
-      log.done();
+      // log.done();
   
       if (options.zip && options.individually) {
         const zip = new Zip();
@@ -78,6 +81,8 @@ async function buildFiles(files: any, options: any) {
         await zip.writeZipPromise(
           path.resolve(options.output, `${file.name}.zip`),
         );
+
+        console.log('ok')
   
         // log(
         //   file.name,
@@ -86,9 +91,9 @@ async function buildFiles(files: any, options: any) {
         //     bytes(fs.statSync(path.resolve(options.output, `${file.name}.zip`)).size),
         //   ),
         // );
-        log.done();
+        // log.done();
       }
     }
   }
 
-  export {buildFiles}
+  module.exports = buildFiles;

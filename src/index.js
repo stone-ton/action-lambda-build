@@ -1,15 +1,13 @@
+// const log = require('log-update');
+const path = require('path');
+const YAML = require('yaml');
+const parseFunctionsObject = require('./utils/parseFunctionsObject');
+const buildFiles = require('./utils/buildFiles');
+const convertFilesToZip = require('./utils/convertFilesToZip');
+const chalk = require('chalk');
+const fs = require('fs');
 
-import path from 'path';
-import YAML from 'yaml';
-import {parseFunctionsObject} from './utils/parseFunctionsObject';
-import {buildFiles} from './utils/buildFiles';
-import {convertFilesToZip} from './utils/convertFilesToZip';
-import fs from 'fs';
-import log from 'log-update';
-
-// import chalk from 'chalk';
-
-// import bytes from 'bytes';
+const bytes = require('bytes');
 
 
 // program
@@ -44,9 +42,7 @@ const files = parseFunctionsObject(parsedYaml.functions);
 buildFiles(files, options).then(async () => {
   if (options.zip && !options.individually) {
     await convertFilesToZip(options.output, 'latest')
-
     console.log('ok')
-
     // log(
     //   'latest.zip',
     //   chalk.black.bgBlueBright(
@@ -54,6 +50,6 @@ buildFiles(files, options).then(async () => {
     //     bytes(fs.statSync(outputZip).size),
     //   ),
     // );
-    log.done();
+    // log.done();
   }
 });

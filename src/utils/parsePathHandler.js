@@ -1,10 +1,10 @@
-import path from 'path';
-import findPkg from 'find';
+const path = require('path');
+const findPkg = require('find');
 
 const { fileSync: findSync } = findPkg;
 
 
-function parsePathHandler(handler: string) {
+function parsePathHandler(handler) {
   const { dir, name } = path.parse(handler);
   const extensions = /(\/index)?\.(ts|js)/;
   const regexFileName = new RegExp(name + extensions.source, '');
@@ -18,4 +18,4 @@ function parsePathHandler(handler: string) {
   };
 }
 
-  export {parsePathHandler}
+  module.exports = parsePathHandler;
