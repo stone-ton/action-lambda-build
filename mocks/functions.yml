@@ -1,0 +1,5 @@
+functions:
+  test:
+    handler: test/test2/test3/test.handler
+  foo-bar:
+    handler: test/test2.handler
