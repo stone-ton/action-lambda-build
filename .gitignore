@@ -1,7 +1,5 @@
-node_modules
 .vscode
 .idea
-dist
 yarn.lock
-package-lock.json
 build
+node_modules

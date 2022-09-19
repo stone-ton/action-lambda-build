@@ -41,12 +41,6 @@ async function buildFiles(files, options) {
         },
       );
       
-      // log(JSON.stringify(build.assets[Object.keys(build.assets)[1]].source.data));
-      // log.done();
-  
-      // // log(file.name, chalk.black.bgGreen('Finish Build'));
-      // log.done();
-  
       const outputFolderArgs = [process.cwd(), options.output, file.folder];
   
       if (options.individually) outputFolderArgs.splice(2, 0, file.name);
@@ -63,17 +57,6 @@ async function buildFiles(files, options) {
         fs.writeFileSync(`${outputPathWithFilename}.map`, build.assets[Object.keys(build.assets)[0]]?.source);
       }
 
-      console.log('ok')
-
-      // log(
-      //   file.name,
-      //   chalk.black.bgBlue(
-      //     'Size',
-      //     bytes(fs.statSync(outputPathWithFilename).size),
-      //   ),
-      // );
-      // log.done();
-  
       if (options.zip && options.individually) {
         const zip = new Zip();
   
@@ -81,17 +64,6 @@ async function buildFiles(files, options) {
         await zip.writeZipPromise(
           path.resolve(options.output, `${file.name}.zip`),
         );
-
-        console.log('ok')
-  
-        // log(
-        //   file.name,
-        //   chalk.black.bgBlueBright(
-        //     'Size zipped',
-        //     bytes(fs.statSync(path.resolve(options.output, `${file.name}.zip`)).size),
-        //   ),
-        // );
-        // log.done();
       }
     }
   }

@@ -23,10 +23,10 @@ const options = {
   file: 'functions.yml',
   output: 'build',
   minify: true,
-  sourceMap: true,
+  sourceMap: false,
   individually: true,
   zip: true,
-  target: 'es2019'
+  target: 'es2020'
 };
 
 
