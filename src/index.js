@@ -20,7 +20,7 @@ const bytes = require('bytes');
 //   .option('-t, --target <es>', 'ES version target', 'es2019');
 
 const options = {
-  file: 'functions.yml',
+  file: 'serverless.yml',
   output: 'build',
   minify: true,
   sourceMap: false,
