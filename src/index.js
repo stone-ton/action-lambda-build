@@ -35,13 +35,12 @@ const buildRun = async (options = {}) => {
     builder: options.builder ?? 'esbuild',
     outdir: options.outdir ?? 'build',
     base_dir: options.base_dir ?? 'src',
-    sourcemap: options.sourcemap ?? true,
+    sourcemap: options.sourcemap ?? false,
     bundle: options.bundle ?? true,
     individually: options.individually ?? true,
     zip: options.zip ?? true,
     three_shaking: options.three_shaking ?? false,
-    minify: options.minify ?? false,
-    target: 'es2019'
+    minify: options.minify ?? true,
   }
 
   const builder = builders[buildOptions.builder ?? 'esbuild']
