@@ -1,5 +1,5 @@
 name: 'Action Lambda Build'
 description: 'Build of lambda with Actions'
 runs:
-  using: 'node16'
-  main: 'src/index.js'
+  using: 'docker'
+  image: 'Dockerfile'
