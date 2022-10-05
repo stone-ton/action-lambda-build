@@ -7,8 +7,6 @@ const parseHandlersFiles = require('./utils/parse-handlers-files')
 const parseHandlersYML = require('./utils/parse-handlers-yml')
 const zipDirectory = require('./utils/zip-directory')
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
 const builders = {
   esbuild: buildESBuildLambda,
 }
@@ -35,11 +33,11 @@ const buildRun = async (options = {}) => {
     builder: options.builder ?? 'esbuild',
     outdir: options.outdir ?? 'build',
     base_dir: options.base_dir ?? 'src',
-    sourcemap: options.sourcemap ?? false,
+    sourcemap: options.sourcemap ?? true,
     bundle: options.bundle ?? true,
     individually: options.individually ?? true,
     zip: options.zip ?? true,
-    three_shaking: options.three_shaking ?? false,
+    three_shaking: options.three_shaking ?? true,
     minify: options.minify ?? true,
   }
 
@@ -73,8 +71,6 @@ const buildRun = async (options = {}) => {
 
       const promiseResult = zipDirectory(inputFolder, outZip)
       promises.push(promiseResult)
-
-      await sleep(200)
     }
 
     await Promise.all(promises)
