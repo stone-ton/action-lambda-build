@@ -1,36 +1,38 @@
 const YAML = require('yaml')
 const fs = require('fs')
 const path = require('path')
-const { fileSync: findSync }  = require('find')
 
+/**
+ * @param {string} handler
+ */
 const parsePathHandler = (handler) => {
-  const { dir, name } = path.parse(handler);
-  const extensions = /(\/index)?\.(ts|js)/;
-  const regexFileName = new RegExp(name + extensions.source, '');
-  const existsFile = findSync(regexFileName, dir)?.[0]
-    || findSync(extensions, path.join(dir, name))?.[0];
-  if (!existsFile) throw new Error('File not Exists');
+  const paths = handler.split('.')
+  paths.pop()
+  const path = paths.join('.')
 
-  const resultParsed = path.parse(existsFile)
+  const isTS = fs.existsSync(`${path}.ts`)
+  const isJS = fs.existsSync(`${path}.js`)
+
+  if (!isJS && !isTS) {
+    throw new Error(`${handler} not exist`)
+  }
 
   return {
-    base_dir: resultParsed.dir,
-    filename: resultParsed.base,
-    entry_point: `${resultParsed.dir}/${resultParsed.base}`,
-    output: `${resultParsed.dir}/${resultParsed.base.replace('.ts', '.js')}`,
-  };
+    entry_point: `${path}${isTS ? '.ts' : '.js'}`,
+    output: path,
+  }
 }
 
 const parseHandlersYML = (fileHandlers) => {
   const fileYml = fs.readFileSync(path.resolve(process.cwd(), fileHandlers), 'utf8')
-  const parsedYaml = YAML.parse(fileYml);
+  const parsedYaml = YAML.parse(fileYml)
 
   return Object.entries(parsedYaml.functions).map(([lambdaName, functionOptions]) => {
     const parsedFunction = parsePathHandler(functionOptions.handler)
-    
+
     return {
       lambda_name: lambdaName,
-      ...parsedFunction
+      ...parsedFunction,
     }
   })
 }
