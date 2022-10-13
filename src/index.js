@@ -1,5 +1,5 @@
 // @ts-check
-const { readdirSync } = require('fs')
+const { readdirSync, rmSync } = require('fs')
 
 const buildESBuildLambda = require('./builders/esbuild')
 const getFiles = require('./utils/get-files')
@@ -42,6 +42,8 @@ const buildRun = async (options = {}) => {
   }
 
   const builder = builders[buildOptions.builder ?? 'esbuild']
+
+  rmSync(buildOptions.outdir, {recursive: true, force: true})
 
   if (buildOptions.individually) {
     const handlers = parseHandlersYML(buildOptions.functions)
