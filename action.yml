@@ -1,5 +1,40 @@
 name: 'Action Lambda Build'
 description: 'Build of lambda with Actions'
+inputs:
+  base_dir:
+    description: 'Source directory'
+    default: 'src'
+  builder:
+    description: 'Builder'
+    default: 'esbuild'
+  bundle:
+    description: 'Activate bundle'
+    default: 'true'
+  functions:
+    description: 'A .yml file where functions is configured'
+    default: 'serverless.yml'
+  external:
+    description: 'External libs'
+    default: '["aws-sdk"]'
+  individually:
+    description: 'Build individually functions'
+    default: 'true'
+  minify:
+    description: 'Activate minify'
+    default: 'true'
+  outdir:
+    description: 'Output directory'
+    default: 'build'
+  sourcemap:
+    description: 'Activate sourcemap'
+    default: 'true'
+  three_shaking:
+    description: 'Activate three_shaking'
+    default: 'true'
+  zip:
+    description: 'Zip functions'
+    default: 'true'
+
 runs:
   using: 'docker'
   image: 'Dockerfile'

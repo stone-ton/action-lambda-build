@@ -1,6 +1,8 @@
 .editorconfig
+.eslintrc.json
 .git
 .gitignore
+.vscode
 action.yml
 Dockerfile
 node_modules

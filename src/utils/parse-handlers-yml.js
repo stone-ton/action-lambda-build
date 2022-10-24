@@ -1,6 +1,6 @@
-const YAML = require('yaml')
 const fs = require('fs')
 const path = require('path')
+const YAML = require('yaml')
 
 /**
  * @param {string} handler
