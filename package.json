@@ -5,7 +5,7 @@
   "main": "./src/index.js",
   "private": false,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint --ext .js src"
   },
   "keywords": [],
   "author": "",
@@ -15,5 +15,13 @@
     "find": "~0.3.0",
     "fs-extra": "^10.1.0",
     "yaml": "~2.1.1"
+  },
+  "devDependencies": {
+    "@stone-ton/eslint-config-ton": "^0.1.1",
+    "eslint": "^8.26.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.3.0",
+    "eslint-plugin-promise": "^6.1.1"
   }
 }

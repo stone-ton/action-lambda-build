@@ -10,7 +10,7 @@ const defaultSettings = {
   logLevel: 'debug',
   treeShaking: false,
   minify: false,
-  external: ['aws-sdk']
+  external: ['aws-sdk'],
 }
 
 const buildESBuildLambda = async ({ handlers, build }) => {
@@ -24,7 +24,7 @@ const buildESBuildLambda = async ({ handlers, build }) => {
     bundle: build.bundle ?? defaultSettings.bundle,
     treeShaking: build.three_shaking ?? defaultSettings.treeShaking,
     minify: build.minify ?? defaultSettings.minify,
-    external: build.external ?? defaultSettings.external
+    external: build.external ?? defaultSettings.external,
   }
 
   return esbuild.build(buildOptions)

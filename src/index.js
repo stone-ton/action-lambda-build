@@ -13,37 +13,42 @@ const builders = {
 
 /**
  * @typedef {{
- *  functions?: string,
- *  builder?: string,
- *  outdir?: string,
  *  base_dir?: string,
- *  sourcemap?: boolean,
+ *  builder?: string,
  *  bundle?: boolean,
+ *  external?: string[],
+ *  functions?: string,
  *  individually?: boolean,
- *  zip?: boolean,
- *  three_shaking?: boolean,
  *  minify?: boolean
+ *  outdir?: string,
+ *  sourcemap?: boolean,
+ *  three_shaking?: boolean,
+ *  zip?: boolean,
  * }} BuildOptions
  *
  * @param {BuildOptions} options
  */
 const buildRun = async (options = {}) => {
   const buildOptions = {
-    functions: options.functions ?? 'serverless.yml',
-    builder: options.builder ?? 'esbuild',
-    outdir: options.outdir ?? 'build',
     base_dir: options.base_dir ?? 'src',
-    sourcemap: options.sourcemap ?? true,
+    builder: options.builder ?? 'esbuild',
     bundle: options.bundle ?? true,
+    external: options.external ?? ['aws-sdk'],
+    functions: options.functions ?? 'serverless.yml',
     individually: options.individually ?? true,
-    zip: options.zip ?? true,
-    three_shaking: options.three_shaking ?? true,
     minify: options.minify ?? true,
+    outdir: options.outdir ?? 'build',
+    sourcemap: options.sourcemap ?? true,
+    three_shaking: options.three_shaking ?? true,
+    zip: options.zip ?? true,
   }
 
   const builder = builders[buildOptions.builder ?? 'esbuild']
 
-  rmSync(buildOptions.outdir, {recursive: true, force: true})
+  rmSync(buildOptions.outdir, {
+    recursive: true,
+    force: true,
+  })
 
   if (buildOptions.individually) {
     const handlers = parseHandlersYML(buildOptions.functions)
@@ -81,4 +86,16 @@ const buildRun = async (options = {}) => {
   console.info('Build finished')
 }
 
-buildRun({})
+buildRun({
+  base_dir: process.env.INPUT_BASE_DIR,
+  builder: process.env.INPUT_BUILDER,
+  bundle: process.env.INPUT_BUNDLE === 'true',
+  external: process.env.INPUT_EXTERNAL ? JSON.parse(process.env.INPUT_EXTERNAL) : ['aws-sdk'],
+  functions: process.env.INPUT_FUNCTIONS,
+  individually: process.env.INPUT_INDIVIDUALLY === 'true',
+  minify: process.env.INPUT_MINIFY === 'true',
+  outdir: process.env.INPUT_OUTDIR,
+  sourcemap: process.env.INPUT_SOURCEMAP === 'true',
+  three_shaking: process.env.INPUT_THREE_SHAKING === 'true',
+  zip: process.env.INPUT_ZIP === 'true',
+})
