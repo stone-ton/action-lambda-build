@@ -34,6 +34,9 @@ inputs:
   zip:
     description: 'Zip functions'
     default: 'true'
+  loader:
+    description: 'Loaders'
+    default: '{}'
 
 runs:
   using: 'docker'

@@ -41,6 +41,7 @@ const buildRun = async (options = {}) => {
     sourcemap: options.sourcemap ?? true,
     three_shaking: options.three_shaking ?? true,
     zip: options.zip ?? true,
+    loader: options.loader,
   }
 
   const builder = builders[buildOptions.builder ?? 'esbuild']
@@ -98,4 +99,5 @@ buildRun({
   sourcemap: process.env.INPUT_SOURCEMAP === 'true',
   three_shaking: process.env.INPUT_THREE_SHAKING === 'true',
   zip: process.env.INPUT_ZIP === 'true',
+  loader: process.env.INPUT_LOADER ? JSON.parse(process.env.INPUT_LOADER) : {},
 })

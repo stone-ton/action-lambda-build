@@ -3,7 +3,7 @@ const path = require('path')
 
 const parsePathHandler = (handler) => {
   const { dir, name } = path.parse(handler)
-  const extensions = /(\/index)?\.(ts|js)/
+  const extensions = /(\/index)?\.(ts|js|mustache)/
   const regexFileName = new RegExp(name + extensions.source, '')
   const existsFile = findSync(regexFileName, dir)?.[0]
     || findSync(extensions, path.join(dir, name))?.[0]
