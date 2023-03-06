@@ -40,7 +40,7 @@ inputs:
   extensions:
     description: 'Add more filter files extensions, separate by comma, ex: "mjs,cjs,png"'
     default: ''
-  staticPath:
+  static_path:
     description: 'Copy path to build'
 
 runs:
