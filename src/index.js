@@ -85,6 +85,7 @@ const buildRun = async (options = {}) => {
   const handlers = readdirSync(outdir)
 
   if (options.staticPath) {
+    console.debug('Copying static files to lambda build')
     for (const handler of handlers) {
       fse.copySync(
         path.resolve(process.cwd()) + `/${options.staticPath}`,
