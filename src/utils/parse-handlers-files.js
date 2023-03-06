@@ -2,8 +2,19 @@ const { fileSync: findSync } = require('find')
 const path = require('path')
 
 const parsePathHandler = (handler) => {
+  const moreExtensions = process.env.INPUT_EXTENSIONS
+
+  const allExtensions = [
+    'ts',
+    'js',
+  ]
+
+  if (process.env.INPUT_EXTENSIONS) {
+    allExtensions.push(...moreExtensions.split(','))
+  }
+
   const { dir, name } = path.parse(handler)
-  const extensions = /(\/index)?\.(ts|js|mustache)/
+  const extensions = new RegExp(`(/index)?\\.(${allExtensions.join('|')})`)
   const regexFileName = new RegExp(name + extensions.source, '')
   const existsFile = findSync(regexFileName, dir)?.[0]
     || findSync(extensions, path.join(dir, name))?.[0]

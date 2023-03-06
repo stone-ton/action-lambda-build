@@ -1,5 +1,10 @@
 // @ts-check
-const { readdirSync, rmSync } = require('fs')
+const {
+  readdirSync,
+  rmSync,
+} = require('fs')
+const fse = require('fs-extra')
+const path = require('path')
 
 const buildESBuildLambda = require('./builders/esbuild')
 const getFiles = require('./utils/get-files')
@@ -24,11 +29,20 @@ const builders = {
  *  sourcemap?: boolean,
  *  three_shaking?: boolean,
  *  zip?: boolean,
+ *  loader?: object,
  * }} BuildOptions
  *
  * @param {BuildOptions} options
  */
 const buildRun = async (options = {}) => {
+  const {
+    outdir = 'build',
+  } = options
+
+  const fullOutDir = outdir + (options.individually
+    ? ''
+    : '/lambdas')
+
   const buildOptions = {
     base_dir: options.base_dir ?? 'src',
     builder: options.builder ?? 'esbuild',
@@ -37,7 +51,7 @@ const buildRun = async (options = {}) => {
     functions: options.functions ?? 'serverless.yml',
     individually: options.individually ?? true,
     minify: options.minify ?? true,
-    outdir: options.outdir ?? 'build',
+    outdir: fullOutDir,
     sourcemap: options.sourcemap ?? true,
     three_shaking: options.three_shaking ?? true,
     zip: options.zip ?? true,
@@ -46,7 +60,7 @@ const buildRun = async (options = {}) => {
 
   const builder = builders[buildOptions.builder ?? 'esbuild']
 
-  rmSync(buildOptions.outdir, {
+  rmSync(outdir, {
     recursive: true,
     force: true,
   })
@@ -68,14 +82,24 @@ const buildRun = async (options = {}) => {
     })
   }
 
+  const handlers = readdirSync(outdir)
+
+  if (options.staticPath) {
+    for (const handler of handlers) {
+      fse.copySync(
+        path.resolve(process.cwd()) + `/${options.staticPath}`,
+        path.resolve(process.cwd(), outdir, handler) + `/${options.staticPath}`,
+        { overwrite: false })
+    }
+  }
+
   if (buildOptions.zip) {
-    const handlers = readdirSync(buildOptions.outdir)
     console.debug(`Starting lambdas compress: - ${handlers.length} function(s)`)
 
     const promises = []
     for (const handler of handlers) {
-      const inputFolder = `${process.cwd()}/${buildOptions.outdir}/${handler}`
-      const outZip = `${buildOptions.outdir}/${handler}.zip`
+      const inputFolder = `${process.cwd()}/${outdir}/${handler}`
+      const outZip = `${outdir}/${handler}.zip`
 
       const promiseResult = zipDirectory(inputFolder, outZip)
       promises.push(promiseResult)
@@ -100,4 +124,5 @@ buildRun({
   three_shaking: process.env.INPUT_THREE_SHAKING === 'true',
   zip: process.env.INPUT_ZIP === 'true',
   loader: process.env.INPUT_LOADER ? JSON.parse(process.env.INPUT_LOADER) : {},
+  staticPath: process.env.INPUT_STATIC_PATH,
 })

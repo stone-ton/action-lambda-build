@@ -35,8 +35,13 @@ inputs:
     description: 'Zip functions'
     default: 'true'
   loader:
-    description: 'Loaders'
+    description: 'Add esbuild loaders'
     default: '{}'
+  extensions:
+    description: 'Add more filter files extensions, separate by comma, ex: "mjs,cjs,png"'
+    default: ''
+  staticPath:
+    description: 'Copy path to build'
 
 runs:
   using: 'docker'
