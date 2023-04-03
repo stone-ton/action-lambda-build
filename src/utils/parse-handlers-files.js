@@ -2,7 +2,7 @@ const { fileSync: findSync } = require('find')
 const path = require('path')
 
 const parsePathHandler = (handler) => {
-  const moreExtensions = process.env.INPUT_EXTENSIONS
+  const inputExtensions = process.env.INPUT_EXTENSIONS
 
   const allExtensions = [
     'ts',
@@ -10,14 +10,16 @@ const parsePathHandler = (handler) => {
   ]
 
   if (process.env.INPUT_EXTENSIONS) {
-    allExtensions.push(...moreExtensions.split(','))
+    allExtensions.push(...inputExtensions.split(','))
   }
 
+  const extensions = allExtensions.join('|')
+
   const { dir, name } = path.parse(handler)
-  const extensions = new RegExp(`(/index)?\\.(${allExtensions.join('|')})`)
-  const regexFileName = new RegExp(name + extensions.source, '')
+  const extensionsRegex = new RegExp(`(/index)?\\.(${extensions})`)
+  const regexFileName = new RegExp(name + extensionsRegex.source, '')
   const existsFile = findSync(regexFileName, dir)?.[0]
-    || findSync(extensions, path.join(dir, name))?.[0]
+    || findSync(extensionsRegex, path.join(dir, name))?.[0]
   if (!existsFile) throw new Error('File not Exists')
 
   const resultParsed = path.parse(existsFile)
