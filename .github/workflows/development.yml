@@ -3,11 +3,11 @@ on:
     branches:
       - development
 
-name: Deploy to Sandbox (S3)
+name: Updating tags
 
 jobs:
   deploy:
-    name: Deploy
+    name: update tag
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
