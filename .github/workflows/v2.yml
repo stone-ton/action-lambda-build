@@ -3,7 +3,7 @@ on:
     branches:
       - master
 
-name: Updating tags
+name: Updating tags - v2
 
 jobs:
   deploy:
@@ -15,7 +15,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: development
+          ref: master
       - run: |
           git tag v2 -f
           git push origin v2 -f
