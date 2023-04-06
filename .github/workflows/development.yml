@@ -3,7 +3,7 @@ on:
     branches:
       - development
 
-name: Updating tags
+name: Updating tags - dev
 
 jobs:
   deploy:
