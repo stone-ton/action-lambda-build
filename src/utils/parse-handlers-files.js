@@ -9,7 +9,7 @@ const parsePathHandler = (handler) => {
     'js',
   ]
 
-  if (process.env.INPUT_EXTENSIONS) {
+  if (inputExtensions) {
     allExtensions.push(...inputExtensions.split(','))
   }
 
