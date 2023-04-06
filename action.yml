@@ -35,10 +35,11 @@ inputs:
     description: 'Zip functions'
     default: 'true'
   loader:
-    description: 'Add esbuild loaders'
+    # loader: '{".mustache": "copy"}'
+    description: 'Add esbuild loaders, ex: {".mustache": "copy"}'
     default: '{}'
   extensions:
-    description: 'Add more filter files extensions, separate by comma, ex: "mjs,cjs,png"'
+    description: 'Add more filter files extensions, separate by comma, js* and ts* is already added, dont need add again  ex: "mjs,cjs,png"'
     default: ''
   static_path:
     description: 'Copy path to build'
