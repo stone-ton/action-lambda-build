@@ -25,6 +25,7 @@ const buildESBuildLambda = async ({ handlers, build }) => {
     treeShaking: build.three_shaking ?? defaultSettings.treeShaking,
     minify: build.minify ?? defaultSettings.minify,
     external: build.external ?? defaultSettings.external,
+    loader: build.loader,
   }
 
   return esbuild.build(buildOptions)

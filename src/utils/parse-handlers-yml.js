@@ -27,14 +27,16 @@ const parseHandlersYML = (fileHandlers) => {
   const fileYml = fs.readFileSync(path.resolve(process.cwd(), fileHandlers), 'utf8')
   const parsedYaml = YAML.parse(fileYml)
 
-  return Object.entries(parsedYaml.functions).map(([lambdaName, functionOptions]) => {
-    const parsedFunction = parsePathHandler(functionOptions.handler)
+  return Object.entries(parsedYaml.functions)
+    .filter(([_, functionOptions]) => !functionOptions.ignoreBuild)
+    .map(([lambdaName, functionOptions]) => {
+      const parsedFunction = parsePathHandler(functionOptions.handler)
 
-    return {
-      lambda_name: lambdaName,
-      ...parsedFunction,
-    }
-  })
+      return {
+        lambda_name: lambdaName,
+        ...parsedFunction,
+      }
+    })
 }
 
 module.exports = parseHandlersYML

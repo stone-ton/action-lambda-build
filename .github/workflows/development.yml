@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+      - development
+
+name: Updating tags
+
+jobs:
+  deploy:
+    name: update tag
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: development
+      - run: |
+          git tag dev -f
+          git push origin dev -f
