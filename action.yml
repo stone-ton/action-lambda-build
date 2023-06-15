@@ -37,7 +37,7 @@ inputs:
   loader:
     # loader: '{".mustache": "copy"}'
     description: 'Add esbuild loaders, ex: {".mustache": "copy"}'
-    default: '{}'
+    default: '{"".mustache": "copy"}'
   extensions:
     description: 'Add more filter files extensions, separate by comma, js* and ts* is already added, dont need add again  ex: "mjs,cjs,png"'
     default: ''
