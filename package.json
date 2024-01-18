@@ -10,18 +10,18 @@
   "keywords": [],
   "author": "",
   "dependencies": {
-    "archiver": "~5.3.1",
-    "esbuild": "~0.17.10",
+    "archiver": "~6.0.1",
+    "esbuild": "~0.19.11",
     "find": "~0.3.0",
-    "fs-extra": "^11.1.0",
-    "yaml": "~2.2.1"
+    "fs-extra": "~11.2.0",
+    "yaml": "~2.3.4"
   },
   "devDependencies": {
     "@stone-ton/eslint-config-ton": "^0.2.0",
-    "eslint": "^8.34.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^15.6.1",
+    "eslint": "^8.56.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1"
   }
 }
