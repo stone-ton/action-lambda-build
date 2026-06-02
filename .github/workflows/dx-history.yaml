@@ -8,6 +8,9 @@ on:
         type: string
         default: ''
 
+permissions:
+  contents: read
+
 jobs:
   call-dx-labeler:
     uses: stone-ton/github-runner-validator/.github/workflows/dx-labeler.yaml@main
